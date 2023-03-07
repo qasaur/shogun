@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package shogun.liquidity;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "shogun/x/liquidity/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreatePair (MsgCreatePair) returns (MsgCreatePairResponse);
+  rpc CreatePool (MsgCreatePool) returns (MsgCreatePoolResponse);
+  rpc Deposit    (MsgDeposit   ) returns (MsgDepositResponse   );
+  rpc Withdraw   (MsgWithdraw  ) returns (MsgWithdrawResponse  );
+}
+message MsgCreatePair {
+  string creator        = 1;
+  string baseCoinDenom  = 2;
+  string quoteCoinDenom = 3;
+}
+
+message MsgCreatePairResponse {}
+
+message MsgCreatePool {
+           string                   creator      = 1;
+           uint64                   pairId       = 2;
+  repeated cosmos.base.v1beta1.Coin depositCoins = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgCreatePoolResponse {}
+
+message MsgDeposit {
+           string                   depositor    = 1;
+           uint64                   poolId       = 2;
+  repeated cosmos.base.v1beta1.Coin depositCoins = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgDepositResponse {}
+
+message MsgWithdraw {
+  string                   withdrawer = 1;
+  uint64                   poolId     = 2;
+  cosmos.base.v1beta1.Coin poolCoin   = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgWithdrawResponse {}
+

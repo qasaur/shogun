@@ -1,0 +1,12 @@
+syntax = "proto3";
+package shogun.liquidity;
+
+import "gogoproto/gogo.proto";
+import "shogun/liquidity/params.proto";
+
+option go_package = "shogun/x/liquidity/types";
+
+// GenesisState defines the liquidity module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
