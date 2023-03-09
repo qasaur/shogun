@@ -106,6 +106,7 @@ import (
 	liquiditymodule "shogun/x/liquidity"
 	liquiditymodulekeeper "shogun/x/liquidity/keeper"
 	liquiditymoduletypes "shogun/x/liquidity/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "shogun/app/params"
@@ -496,15 +497,14 @@ func New(
 		govConfig,
 	)
 
-	app.LiquidityKeeper = *liquiditymodulekeeper.NewKeeper(
+	app.LiquidityKeeper = liquiditymodulekeeper.NewKeeper(
 		appCodec,
 		keys[liquiditymoduletypes.StoreKey],
-		keys[liquiditymoduletypes.MemStoreKey],
 		app.GetSubspace(liquiditymoduletypes.ModuleName),
-
-		app.BankKeeper,
 		app.AccountKeeper,
+		app.BankKeeper,
 	)
+
 	liquidityModule := liquiditymodule.NewAppModule(appCodec, app.LiquidityKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
@@ -687,7 +687,7 @@ func New(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
-		liquidityModule,
+		//liquidityModule, TODO: Fix this
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()

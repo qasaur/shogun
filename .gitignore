@@ -6,3 +6,5 @@ release/
 .DS_Store
 
 wasm/target
+
+shogund

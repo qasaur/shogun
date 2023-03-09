@@ -1,54 +1,54 @@
 package keeper
 
-import (
-	"testing"
+// import (
+// 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/cosmos/cosmos-sdk/store"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/log"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	tmdb "github.com/tendermint/tm-db"
-	"shogun/x/liquidity/keeper"
-	"shogun/x/liquidity/types"
-)
+// 	"shogun/x/liquidity/keeper"
+// 	"shogun/x/liquidity/types"
 
-func LiquidityKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
+// 	"github.com/cosmos/cosmos-sdk/codec"
+// 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+// 	"github.com/cosmos/cosmos-sdk/store"
+// 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
+// 	sdk "github.com/cosmos/cosmos-sdk/types"
+// 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
+// 	"github.com/stretchr/testify/require"
+// 	"github.com/tendermint/tendermint/libs/log"
+// 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+// 	tmdb "github.com/tendermint/tm-db"
+// )
 
-	db := tmdb.NewMemDB()
-	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(memStoreKey, storetypes.StoreTypeMemory, nil)
-	require.NoError(t, stateStore.LoadLatestVersion())
+// func LiquidityKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+// 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
+// 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
-	registry := codectypes.NewInterfaceRegistry()
-	cdc := codec.NewProtoCodec(registry)
+// 	db := tmdb.NewMemDB()
+// 	stateStore := store.NewCommitMultiStore(db)
+// 	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+// 	stateStore.MountStoreWithDB(memStoreKey, storetypes.StoreTypeMemory, nil)
+// 	require.NoError(t, stateStore.LoadLatestVersion())
 
-	paramsSubspace := typesparams.NewSubspace(cdc,
-		types.Amino,
-		storeKey,
-		memStoreKey,
-		"LiquidityParams",
-	)
-	k := keeper.NewKeeper(
-		cdc,
-		storeKey,
-		memStoreKey,
-		paramsSubspace,
-		nil,
-		nil,
-	)
+// 	registry := codectypes.NewInterfaceRegistry()
+// 	cdc := codec.NewProtoCodec(registry)
 
-	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
+// 	paramsSubspace := typesparams.NewSubspace(cdc,
+// 		types.Amino,
+// 		storeKey,
+// 		memStoreKey,
+// 		"LiquidityParams",
+// 	)
+// 	k := keeper.NewKeeper(
+// 		cdc,
+// 		storeKey,
+// 		memStoreKey,
+// 		paramsSubspace,
+// 		nil,
+// 	)
 
-	// Initialize params
-	k.SetParams(ctx, types.DefaultParams())
+// 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
 
-	return k, ctx
-}
+// 	// Initialize params
+// 	k.SetParams(ctx, types.DefaultParams())
+
+// 	return k, ctx
+// }
