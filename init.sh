@@ -17,4 +17,4 @@ echo $DA_BLOCK_HEIGHT
 ./shogund add-genesis-account $KEY_NAME $TOKEN_AMOUNT --keyring-backend test
 ./shogund gentx $KEY_NAME $STAKING_AMOUNT --chain-id $CHAIN_ID --keyring-backend test
 ./shogund collect-gentxs
-./shogund start --rollkit.aggregator true --rollkit.da_layer celestia --rollkit.da_config='{"base_url":"http://127.0.0.1:26659","timeout":60000000000,"fee":6000,"gas_limit":6000000}' --rollkit.namespace_id $NAMESPACE_ID --rollkit.da_start_height $DA_BLOCK_HEIGHT
+./shogund start --rollkit.aggregator true --rollkit.da_layer celestia --rollkit.da_config='{"base_url":"http://127.0.0.1:26659","timeout":60000000000,"fee":6000,"gas_limit":6000000}' --rollkit.namespace_id $NAMESPACE_ID --rollkit.da_start_height $DA_BLOCK_HEIGHT --log_level debug
